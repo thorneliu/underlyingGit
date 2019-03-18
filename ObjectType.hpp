@@ -1,7 +1,7 @@
 #ifndef __COMMON_OBJECT_TYPES_HPP__
 #define __COMMON_OBJECT_TYPES_HPP__
 
-Enum class EObjectType {
+enum class EObjectType {
     EObjectBlobType,
     EObjectTreeType,
     EObjectCommitType,
