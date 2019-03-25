@@ -1,13 +1,13 @@
-#ifndef __COMMON_SHA1_HPP__
-#define __COMMON_SHA1_HPP__
+#ifndef __COMMON_OBJECTID_HPP__
+#define __COMMON_OBJECTID_HPP__
 
-#include "string"
-#include "sstream"
+#include <string>
+#include <sstream>
 
-class SHA1{
+class ObjectId{
 public:
-    SHA1(std::string hexString);
-    SHA1(unsigned char sha1[]);
+    ObjectId(std::string hexString);
+    ObjectId(unsigned char sha1[]);
     std::string to_string() const;
     std::string getdirName() const;
     std::string getFileName() const;
