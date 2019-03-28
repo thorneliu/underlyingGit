@@ -50,5 +50,12 @@ is not stored in such objects(`tree` ojbect).
 
 ### commit object
 
+### sha1_file.c
+git仓库里面的sha1_file.c提供了读写object的基本方法：
+- 根据内容计算sha1的值
+- 计算sha1 filename
+- read_sha1_file 可以在给定sha1值的情况下将文件的内容解析出来
+- write_sha1_file 可以通过在制定文件buffer的情况下，计算sha1值并将buffer + header压缩后写入对应filename的文件中
+
 # Ref
 [Pro Git Book](https://git-scm.com/book/en/v2/)
