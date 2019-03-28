@@ -47,6 +47,61 @@ A `blob` object stores pure content of one file, which means the file name and d
 is not stored in such objects(`tree` ojbect).
 
 ### tree object
+A `tree` object contains the structual file and directory information of files in the repository.
+The contents of one `tree` object is a list of objects:
+- `tree` refers to subdirectory under this tree
+- `blob` refers to files in this directory
+
+For example, given a tree object `ea8b8dea81f889d48f00b2164fb18936d406c40a`
+```
+$ git cat-file -p ea8b
+100644 blob 262957e98aa825a31b7f0412f730758c03984ad2    CMakeList.txt
+040000 tree cb84fc68f806c3deb2ae3e0792190a751ef16043    src
+```
+
+And the tree object `cb84fc68f806c3deb2ae3e0792190a751ef16043` is one subdirectory in this folder,
+with its contents as:
+```
+$ git cat-file -p cb84fc68f806c3deb2ae3e0792190a751ef16043
+100644 blob 9054cbb8f672568e722775ef0a9f236111700bc5    hello.c
+100644 blob a4b43ca1606cbb9710eef4378d8712eae7628f6d    hello.h
+```
+
+So the whole tree structure shows a file hierarchy as following:
+```
+$ tree
+.
+├── CMakeList.txt
+└── src
+    ├── hello.c
+    └── hello.h
+```
+
+In `git` source code, the `tree` object is presented as struct tree:
+```
+struct tree {
+	struct object object;
+	struct tree_entry_list *entries;
+};
+```
+where the `tree_entry_list` is one node of double-linked list with defination:
+```
+struct tree_entry_list {
+	struct tree_entry_list *next;
+	unsigned directory : 1;
+	unsigned executable : 1;
+	unsigned symlink : 1;
+	unsigned int mode;
+	char *name;
+	union {
+		struct tree *tree;
+		struct blob *blob;
+	} item;
+	struct tree_entry_list *parent;
+};
+```
+
+The `tree_entry_list` is a double-linked list to present one tree object in git system, where the `next`
 
 ### commit object
 
